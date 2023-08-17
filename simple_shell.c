@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 			else 
 			{
 				cmnd = strdup(buff[0]);
-				if (status(buff, path) == 0)
+				if (status(buff) == 0)
 					ret = child_process(buff, path);
 				else
 				{

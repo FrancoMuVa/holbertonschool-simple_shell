@@ -88,7 +88,7 @@ int child_process(char **buff, char *path)
 	int child_status = 0;
 
 	/*check if the path (buff) created exist*/
-	if (status(buff, path) == 0)
+	if (status(buff) == 0)
 	{
 		/*create a child process to execute the path (buff)*/
 		pid = fork();
