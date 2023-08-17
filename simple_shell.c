@@ -27,12 +27,12 @@ void free_buff(char **buff)
  * Return: Nothing.
  */
 
-void exit_program(char **buff, char *input, char *path)
+void exit_program(char **buff, char *input, char *path, int ret)
 {
 	free(input);
 	free(path);
 	free_buff(buff);
-	exit(0);
+	exit(ret);
 }
 
 /**
@@ -43,8 +43,12 @@ void exit_program(char **buff, char *input, char *path)
  */
 
 /**
- * not_found - 
+ * not_found - Print command not found.
+ * @argv: arguments.
+ * @argc: Number of arguments.
+ * @cmnd: input command.
  *
+ * Return: Error code (command not found - 127)
  */
 
 int not_found(char *argv[], int argc, char *cmnd)
@@ -95,14 +99,14 @@ int main(int argc, char *argv[])
 		if (buff != NULL)
 		{
 			if (strcmp(buff[0], "exit") == 0)
-				exit_program(buff, input, path);
+				exit_program(buff, input, path, ret);
 
 			else if (strcmp(buff[0], "env") == 0)
 				ret = print_env();
 			else 
 			{
 				cmnd = strdup(buff[0]);
-				if (status(buff) == 0)
+				if (status(buff, path) == 0)
 					ret = child_process(buff, path);
 				else
 				{

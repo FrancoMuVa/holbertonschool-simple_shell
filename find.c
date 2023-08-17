@@ -7,12 +7,17 @@
  * Return: 0 if file found, -1 otherwise.
  */
 
-int status(char **buff)
+int status(char **buff, char *path)
 {
 	struct stat st;
 
-	if (stat(buff[0], &st) == 0)
-		return (0);
+	if (path != NULL)
+	{
+		if (stat(buff[0], &st) == 0)
+			return (0);
+		else
+			return (-1);
+	}
 	else
 		return (-1);
 }
