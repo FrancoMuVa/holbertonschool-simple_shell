@@ -21,8 +21,10 @@ void free_buff(char **buff)
 
 /**
  * exit_program - kill the process.
+ * @buff: user input.
  * @input: user input.
  * @path: path.
+ * @ret: return value.
  *
  * Return: Nothing.
  */
@@ -34,13 +36,6 @@ void exit_program(char **buff, char *input, char *path, int ret)
 	free_buff(buff);
 	exit(ret);
 }
-
-/**
- * _getline - getline function.
- * @path: the path.
- *
- * Return: input.
- */
 
 /**
  * not_found - Print command not found.
@@ -56,6 +51,15 @@ int not_found(char *argv[], int argc, char *cmnd)
 	dprintf(STDERR_FILENO, "%s: %d: %s: not found\n", argv[0], argc, cmnd);
 	return (127);
 }
+
+/**
+ * _getline - getline function.
+ * @path: the path.
+ * @ret: return value.
+ * @fd_isatty: value to check the interactive mode.
+ *
+ * Return: input.
+ */
 
 char *_getline(char *path, int ret, int fd_isatty)
 {
@@ -78,6 +82,8 @@ char *_getline(char *path, int ret, int fd_isatty)
 
 /**
  * main - Sipmple shell main.
+ * @argc: Number of arguments.
+ * @argv: array of arguments.
  *
  * Return: 0 (Success).
  */
@@ -100,10 +106,9 @@ int main(int argc, char *argv[])
 		{
 			if (strcmp(buff[0], "exit") == 0)
 				exit_program(buff, input, path, ret);
-
 			else if (strcmp(buff[0], "env") == 0)
 				ret = print_env();
-			else 
+			else
 			{
 				cmnd = strdup(buff[0]);
 				if (status(buff) == 0)

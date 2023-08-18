@@ -51,7 +51,10 @@ char *_getenv(void)
 	/*save the value of the PATH*/
 	token = strtok(NULL, delim);
 	if (token == NULL)
+	{
+		free(env_cpy);
 		return (NULL);
+	}
 	else
 	{
 		fin_token = strdup(token);
@@ -98,7 +101,7 @@ char *_which(char **buff, char *path)
 {
 	const char *delim = ":\n";
 	struct stat st;
-	char *path_cpy, *token = NULL, *test = NULL;
+	char *path_cpy = NULL, *token = NULL, *test = NULL;
 
 	/*if @path is NULL = PATH doesnt exist in the "environ"*/
 	if (path == NULL)
