@@ -45,9 +45,9 @@ void exit_program(char **buff, char *input, char *path, int ret)
  * Return: Error code (command not found - 127)
  */
 
-int not_found(char *argv[], int argc, char *cmnd)
+int not_found(char *argv[], int line, char *cmnd)
 {
-	dprintf(STDERR_FILENO, "%s: %d: %s: not found\n", argv[0], argc, cmnd);
+	dprintf(STDERR_FILENO, "%s: %d: %s: not found\n", argv[0], line, cmnd);
 	return (127);
 }
 
@@ -91,7 +91,8 @@ int main(int argc, char *argv[])
 {
 	const char *prompt = "$ ";
 	char *input = NULL, **buff = NULL, *cmnd = NULL, *path = NULL;
-	int fd_isatty = 0, ret = 0;
+	int fd_isatty = 0, ret = 0, line = 0;
+	(void) argc;
 
 	path = _getenv();
 	while (1)/*infinite while loop for the shell*/
@@ -100,6 +101,7 @@ int main(int argc, char *argv[])
 		if (fd_isatty)
 			printf("%s", prompt);
 		input = _getline(path, ret, fd_isatty);
+		line++;
 		buff = create_buff(input, path);
 		if (buff != NULL)
 		{
@@ -118,7 +120,7 @@ int main(int argc, char *argv[])
 					if (buff[0] != NULL)
 						ret = child_process(buff, path);
 					else
-						ret = not_found(argv, argc, cmnd);
+						ret = not_found(argv, line, cmnd);
 				}
 				free(cmnd);
 			}

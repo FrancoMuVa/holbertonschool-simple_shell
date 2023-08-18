@@ -10,16 +10,15 @@
 int status(char **buff)
 {
 	struct stat st;
+	int i = 0;
 
-	if ((strncmp(buff[0], "./", 2)) == 0)
+	if (stat(buff[0], &st) == 0)
 	{
-		if (stat(buff[0], &st) == 0)
-			return (0);
-		else
-			return (-1);
+		for (; buff[0][i]; i++)
+			if (buff[0][i] == '/')
+				return (0);
 	}
-	else
-		return (-1);
+	return (-1);
 }
 
 /**
