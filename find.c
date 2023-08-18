@@ -10,11 +10,15 @@
 int status(char **buff)
 {
 	struct stat st;
+	int i = 0;
 
 	if (stat(buff[0], &st) == 0)
-		return (0);
-	else
-		return (-1);
+	{
+		for (; buff[0][i]; i++)
+			if (buff[0][i] == '/')
+				return (0);
+	}
+	return (-1);
 }
 
 /**
@@ -50,8 +54,11 @@ char *_getenv(void)
 	}
 	/*save the value of the PATH*/
 	token = strtok(NULL, delim);
-	if (strcmp(token, "") == 0)
+	if (token == NULL)
+	{
+		free(env_cpy);
 		return (NULL);
+	}
 	else
 	{
 		fin_token = strdup(token);
@@ -80,7 +87,6 @@ char *allocate_mem(char **buff, char *token, char *path, char *path_cpy)
 		free(path);
 		free(path_cpy);
 		free(buff);
-		perror("Allocate memory error\n");
 		exit(-1);
 	}
 	strcpy(test, token);
@@ -99,12 +105,14 @@ char *_which(char **buff, char *path)
 {
 	const char *delim = ":\n";
 	struct stat st;
-	char *path_cpy, *token = NULL, *test = NULL;
+	char *path_cpy = NULL, *token = NULL, *test = NULL;
 
 	/*if @path is NULL = PATH doesnt exist in the "environ"*/
 	if (path == NULL)
+	{
+		free(buff[0]);
 		return (NULL);
-
+	}
 	/*creates a new string (path) in @buff[0] to find in the @path the command*/
 	path_cpy = strdup(path);
 	token = strtok(path_cpy, delim);

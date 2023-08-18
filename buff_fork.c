@@ -85,6 +85,7 @@ char **create_buff(char *input, char *path)
 int child_process(char **buff, char *path)
 {
 	pid_t pid = getpid();
+	int child_status = 0;
 
 	/*check if the path (buff) created exist*/
 	if (status(buff) == 0)
@@ -95,7 +96,7 @@ int child_process(char **buff, char *path)
 		{
 			free(path);
 			free_buff(buff);
-			perror("Fork failed\n");
+			perror("%s\n");
 			return (-1);
 		}
 		else if (pid == 0)
@@ -103,11 +104,13 @@ int child_process(char **buff, char *path)
 			exec(buff);
 			free(path);
 			free_buff(buff);
-			perror("Execve failed");
+			perror("%s\n");
 			return (-1);
 		}
 		else
-			wait(NULL);
+		{
+			wait(&child_status);
+		}
 	}
-	return (0);
+	return (WEXITSTATUS(child_status));
 }

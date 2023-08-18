@@ -20,5 +20,5 @@ char **create_buff(char *input, char *path);
 int child_process(char **bff, char *path);
 int status(char **buff);
 char *_which(char **buff, char *path);
-void print_env(void);
+int print_env(void);
 #endif

@@ -6,7 +6,7 @@
  * Return: 0 (Success).
  */
 
-void print_env(void)
+int print_env(void)
 {
 	int i = 0;
 
@@ -14,6 +14,7 @@ void print_env(void)
 	{
 		printf("%s\n", environ[i++]);
 	}
+	return (0);
 }
 
 /**
