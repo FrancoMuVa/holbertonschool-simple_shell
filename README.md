@@ -77,6 +77,12 @@ Compiled on Ubuntu 20.04 LTS*
 - All the files will be compiled on Ubuntu 20.04 LTS
 - No more than 5 functions per file
 
+## File Descriptions
+- buff_fork.c: contains a function to create a buffer from the tokenized input and another to create the child procces to excecute the given command
+- exec.c : cointains the execute command function and a custom function to print env variables
+- find.c : cointains functions in order to check the status of the raw input and the input in the env $PATH
+- simple_shell.c : the main function that contains the main loop
+- shell.h : header file, contains all the prototypes for the files
 
 ### Usage
 
@@ -84,6 +90,9 @@ Compiled on Ubuntu 20.04 LTS*
 If the command is found, the program will create a child process to execute it. If the command is not found, an error message will be printed.
 
 To exit the program, the user can enter the exit command at the prompt, or pressing the combination **Ctrl. + d** . This will cause the program to terminate and free any allocated memory.
+
+## Flowchart
+ <img src="https://github.com/JOTALGS/holbertonschool-simple_shell/blob/main/shell%20FCh.png" alt="Flowchart" border="0">
 
 ## Authors
 
