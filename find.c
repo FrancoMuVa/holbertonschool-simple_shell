@@ -11,8 +11,13 @@ int status(char **buff)
 {
 	struct stat st;
 
-	if (stat(buff[0], &st) == 0)
-		return (0);
+	if ((strncmp(buff[0], "./", 2)) == 0)
+	{
+		if (stat(buff[0], &st) == 0)
+			return (0);
+		else
+			return (-1);
+	}
 	else
 		return (-1);
 }
@@ -105,8 +110,10 @@ char *_which(char **buff, char *path)
 
 	/*if @path is NULL = PATH doesnt exist in the "environ"*/
 	if (path == NULL)
+	{
+		free(buff[0]);
 		return (NULL);
-
+	}
 	/*creates a new string (path) in @buff[0] to find in the @path the command*/
 	path_cpy = strdup(path);
 	token = strtok(path_cpy, delim);

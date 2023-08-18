@@ -15,7 +15,6 @@ void free_buff(char **buff)
 	{
 		free(buff[i++]);
 	}
-	free(buff[i]);
 	free(buff);
 }
 
