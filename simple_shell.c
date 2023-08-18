@@ -39,7 +39,7 @@ void exit_program(char **buff, char *input, char *path, int ret)
 /**
  * not_found - Print command not found.
  * @argv: arguments.
- * @argc: Number of arguments.
+ * @line: lines used in the shell.
  * @cmnd: input command.
  *
  * Return: Error code (command not found - 127)
@@ -126,8 +126,7 @@ int main(int argc, char *argv[])
 			}
 			free_buff(buff);
 		}
-		free(input);
-	}
+		free(input); }
 	free(path);
 	exit(ret);
 }

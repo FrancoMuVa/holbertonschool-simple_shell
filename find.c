@@ -111,8 +111,7 @@ char *_which(char **buff, char *path)
 	if (path == NULL)
 	{
 		free(buff[0]);
-		return (NULL);
-	}
+		return (NULL); }
 	/*creates a new string (path) in @buff[0] to find in the @path the command*/
 	path_cpy = strdup(path);
 	token = strtok(path_cpy, delim);
